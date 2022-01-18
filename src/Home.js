@@ -1,6 +1,8 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import ToDo from "./components/ToDo"
+import "./Home.css"
 
 import { requestApiData } from "./actions";
 
@@ -10,27 +12,16 @@ class App extends React.Component {
   }
 
   render() {
-    const todoList = this.props.data;
+    const todoList = Array.from(this.props.data)
+    console.log(todoList)
     return (
-      <div className = "App">
-          <h1> Todo List 1 </h1>  
-          <label>User ID:</label>{
-            <input type="text" value={todoList.userId}></input>
-          }
-          <br></br>
-          <label>Task ID:</label>{
-            <input type="text" value={todoList.id}></input>
-          }
-          <br></br>
-          <label>Task Name:</label>{
-            <input type="text" value={todoList.title}></input>
-          }
-          <br></br>
-          <label>Task Status:</label>{
-            <input type="text" value={todoList.completed}></input>
-          }
+      <div className="Home">
+        <h3>Task Lists</h3>
+        {todoList.map(todo => (
+          <ToDo key={todo.id} todo={todo}></ToDo>
+        ))}
       </div>
-  );
+    )
   }
 }
 
